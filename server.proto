@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+service PhoneVerification {
+  rpc VerifyPhone (PhoneRequest) returns (PhoneResponse) {}
+}
+
+message PhoneRequest {
+  string phoneNumber = 1;
+  int32 verificationNumber = 2;
+}
+
+enum Response {
+  FOUND = 0;
+  NOT_FOUND = 1;
+}
+
+message PhoneResponse {
+  Response message = 1;
+}
