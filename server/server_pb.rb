@@ -7,7 +7,6 @@ Google::Protobuf::DescriptorPool.generated_pool.build do
   add_file("server.proto", :syntax => :proto3) do
     add_message "PhoneRequest" do
       optional :phoneNumber, :string, 1
-      optional :verificationNumber, :int32, 2
     end
     add_message "PhoneResponse" do
       optional :message, :enum, 1, "Response"

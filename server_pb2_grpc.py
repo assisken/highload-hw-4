@@ -15,10 +15,10 @@ class PhoneVerificationStub(object):
             channel: A grpc.Channel.
         """
         self.VerifyPhone = channel.unary_unary(
-            "/PhoneVerification/VerifyPhone",
-            request_serializer=server__pb2.PhoneRequest.SerializeToString,
-            response_deserializer=server__pb2.PhoneResponse.FromString,
-        )
+                '/PhoneVerification/VerifyPhone',
+                request_serializer=server__pb2.PhoneRequest.SerializeToString,
+                response_deserializer=server__pb2.PhoneResponse.FromString,
+                )
 
 
 class PhoneVerificationServicer(object):
@@ -27,53 +27,40 @@ class PhoneVerificationServicer(object):
     def VerifyPhone(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details("Method not implemented!")
-        raise NotImplementedError("Method not implemented!")
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
 
 
 def add_PhoneVerificationServicer_to_server(servicer, server):
     rpc_method_handlers = {
-        "VerifyPhone": grpc.unary_unary_rpc_method_handler(
-            servicer.VerifyPhone,
-            request_deserializer=server__pb2.PhoneRequest.FromString,
-            response_serializer=server__pb2.PhoneResponse.SerializeToString,
-        ),
+            'VerifyPhone': grpc.unary_unary_rpc_method_handler(
+                    servicer.VerifyPhone,
+                    request_deserializer=server__pb2.PhoneRequest.FromString,
+                    response_serializer=server__pb2.PhoneResponse.SerializeToString,
+            ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
-        "PhoneVerification", rpc_method_handlers
-    )
+            'PhoneVerification', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
 
 
-# This class is part of an EXPERIMENTAL API.
+ # This class is part of an EXPERIMENTAL API.
 class PhoneVerification(object):
     """Missing associated documentation comment in .proto file."""
 
     @staticmethod
-    def VerifyPhone(
-        request,
-        target,
-        options=(),
-        channel_credentials=None,
-        call_credentials=None,
-        insecure=False,
-        compression=None,
-        wait_for_ready=None,
-        timeout=None,
-        metadata=None,
-    ):
-        return grpc.experimental.unary_unary(
-            request,
+    def VerifyPhone(request,
             target,
-            "/PhoneVerification/VerifyPhone",
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/PhoneVerification/VerifyPhone',
             server__pb2.PhoneRequest.SerializeToString,
             server__pb2.PhoneResponse.FromString,
-            options,
-            channel_credentials,
-            insecure,
-            call_credentials,
-            compression,
-            wait_for_ready,
-            timeout,
-            metadata,
-        )
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

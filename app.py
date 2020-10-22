@@ -17,7 +17,7 @@ def hello_world():
         return "Code is required", 400
     verify_code = int(verify_code_str)
 
-    resp = ask_grpc_server(phone, int(verify_code))
+    resp = ask_grpc_server(phone)
     if resp == server_pb2.NOT_FOUND:
         return "Phone Not Found", 404
     if verify_code % 2 == 0:
@@ -25,11 +25,11 @@ def hello_world():
     return "All ok!"
 
 
-def ask_grpc_server(phone: str, code: int) -> int:
+def ask_grpc_server(phone: str) -> int:
     with grpc.insecure_channel("localhost:50051") as channel:
         stub = server_pb2_grpc.PhoneVerificationStub(channel)
         resp = stub.VerifyPhone(
-            server_pb2.PhoneRequest(phoneNumber=phone, verificationNumber=code)
+            server_pb2.PhoneRequest(phoneNumber=phone)
         )
     return resp.message
 

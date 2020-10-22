@@ -6,7 +6,6 @@ service PhoneVerification {
 
 message PhoneRequest {
   string phoneNumber = 1;
-  int32 verificationNumber = 2;
 }
 
 enum Response {
