@@ -31,3 +31,46 @@ $ python3 app.py
 ```bash
 $ ruby server.rb
 ```
+
+## Как использовать GraphQL
+
+[Запускаете](#как-запустить-сервис-а-python) сервис на питоне,
+переходите на: [localhost:5000/graphql](http://localhost:5000/graphql)
+
+Далее вбиваете следующие запросы.
+
+Всё работает, ответ выдаёт номер телефона, код и результат `SUCCESS`:
+
+```graphql
+query VerifyPhone {
+  phone(number: "70000000000", code: 1) {
+    number
+    code
+    validationResult
+  }
+}
+```
+
+Выдаёт номер телефона, код и результат `INCORRECT_CODE`:
+
+```graphql
+query VerifyPhone {
+  phone(number: "70000000000", code: 2) {
+    number
+    code
+    validationResult
+  }
+}
+```
+
+Выдаёт номер телефона, код и результат `NUMBER_NOT_FOUND`:
+
+```graphql
+query VerifyPhone {
+  phone(number: "1234", code: 1) {
+    number
+    code
+    validationResult
+  }
+}
+```
