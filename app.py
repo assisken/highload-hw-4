@@ -1,10 +1,17 @@
-import grpc
 from flask import Flask, request
+from flask_graphql import GraphQLView
 
 import server_pb2
-import server_pb2_grpc
+from ask_grpc import ask_grpc_server
+from schema import schema
 
 app = Flask(__name__)
+
+app.add_url_rule('/graphql', view_func=GraphQLView.as_view(
+    'graphql',
+    schema=schema,
+    graphiql=True,
+))
 
 
 @app.route("/")
@@ -23,13 +30,6 @@ def hello_world():
     if verify_code % 2 == 0:
         return "Code are incorrect", 403
     return "All ok!"
-
-
-def ask_grpc_server(phone: str) -> int:
-    with grpc.insecure_channel("localhost:50051") as channel:
-        stub = server_pb2_grpc.PhoneVerificationStub(channel)
-        resp = stub.VerifyPhone(server_pb2.PhoneRequest(phoneNumber=phone))
-    return resp.message
 
 
 if __name__ == "__main__":
